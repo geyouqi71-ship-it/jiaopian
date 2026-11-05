@@ -54,6 +54,42 @@ img,video,canvas{max-width:100%}
  .app{max-width:600px}
  .finder{max-height:66svh}
 }
+
+/* Expanded secondary camera menus float upward instead of pushing the page down */
+.advancedControls[open]{
+ position:fixed;
+ left:max(12px,calc((100vw - 540px)/2 + 12px));
+ right:max(12px,calc((100vw - 540px)/2 + 12px));
+ bottom:calc(env(safe-area-inset-bottom) + 72px);
+ z-index:18;
+ max-height:min(62svh,520px);
+ overflow-y:auto;
+ overscroll-behavior:contain;
+ background:var(--panel);
+ box-shadow:0 12px 36px #0009;
+ border:1px solid var(--line);
+ border-radius:12px;
+ padding:0 12px 10px;
+}
+.advancedControls[open]>summary{
+ position:sticky;
+ top:0;
+ z-index:2;
+ background:var(--panel);
+}
+.advancedControls[open] .customEffects[open]{
+ max-height:42svh;
+ overflow-y:auto;
+}
+@media(orientation:landscape) and (max-height:600px){
+ .advancedControls[open]{
+  left:max(env(safe-area-inset-left),14px);
+  right:max(env(safe-area-inset-right),14px);
+  bottom:calc(env(safe-area-inset-bottom) + 54px);
+  max-height:70svh;
+ }
+ .advancedControls[open] .customEffects[open]{max-height:48svh}
+}
 </style></head><body><div class="app"><header><div><div class="brand">胶片</div><div class="sub">JIAOPIAN · ANALOG CAMERA</div></div><button class="ghost" id="flip">切换镜头</button></header><main><section class="page active" id="cameraPage"><div class="finder"><video id="video" autoplay playsinline muted></video><canvas id="liveCanvas" aria-hidden="true"></canvas><img id="preview"><div id="exposureLayer" style="position:absolute;inset:0;pointer-events:none;z-index:1;background:transparent"></div><div id="liveDecor"><div class="liveBorder"></div><div class="liveStamp"></div><div class="liveMeta"></div></div><div class="overlay"></div><div class="top"><span>● JIAOPIAN 01</span><span id="clock"></span></div><div class="bottom"><span id="filmLabel">KODAK GOLD 200</span><span id="count">00 / 36</span></div><div id="message"><b>准备好拍一卷照片了吗？</b><p>请通过 HTTPS 打开，并允许 Safari 使用相机。</p><button class="action" id="start">开启相机</button></div></div><div class="stock"><div><strong id="filmName">KODAK GOLD 200</strong><small id="filmDesc">温暖色调 · 柔和颗粒</small></div><select id="film"><option value="gold">Kodak Gold 200</option><option value="portra">Portra 400</option><option value="mono">Tri-X 400</option><option value="chrome">Classic Chrome</option><option value="fade">Vintage Fade</option><option value="ektar">Kodak Ektar 100</option><option value="velvia">Fuji Velvia 50</option><option value="classicneg">Fuji Classic Neg</option><option value="cinestill">CineStill 800T</option><option value="hp5">Ilford HP5 400</option><option value="portra800">Portra 800</option><option value="hasselblad">Hasselblad Natural Color</option></select></div><div class="row"><div><label>ISO</label><select id="iso"><option>100</option><option selected>200</option><option>400</option><option>800</option></select></div><button class="shutter" id="shoot" aria-label="拍照"></button><div class="evControl"><label>曝光 EV <b id="evValue">0.0</b></label><input id="ev" type="range" min="-2" max="2" step="0.5" value="0"></div></div><details class="advancedControls"><summary>更多参数 · 对焦与胶片效果</summary><div class="focusControl"><label>手动对焦 <b id="focusValue">自动</b></label><input id="focus" type="range" min="0" max="100" value="50"><div class="focusScale"><span>近处</span><span>远处</span></div></div><details class="customEffects"><summary>胶片效果自定义</summary><div class="effectGrid"><label>颗粒 <output id="grainVal">默认</output><input id="grain" type="range" min="0" max="100" value="50"></label><label>暗角 <output id="vignetteVal">默认</output><input id="vignette" type="range" min="0" max="100" value="35"></label><label>色温 <output id="warmthVal">中性</output><input id="warmth" type="range" min="-50" max="50" value="0"></label><label>褪色 <output id="fadeVal">0</output><input id="fade" type="range" min="0" max="100" value="0"></label><label>漏光 <output id="leakVal">关闭</output><input id="leak" type="range" min="0" max="100" value="0"></label></div><button class="ghost" id="resetEffects">恢复默认</button></details></details><div class="row"><span class="muted" id="status">相机尚未启动</span><button class="ghost" id="newRoll">换一卷</button></div><div class="row"><span class="muted" id="rollInfo">当前胶卷：等待开始</span></div><details class="advancedControls"><summary>水印与相机外观</summary><div class="row"><div><label>水印样式</label><select id="watermark"><option value="full">完整信息</option><option value="date">仅日期</option><option value="settings">ISO + EV</option><option value="camera">相机铭牌</option><option value="film">胶片型号</option><option value="off">关闭水印</option></select></div><div><label>胶片边框</label><select id="frameStyle"><option value="none">无边框</option><option value="white">经典白边</option><option value="cream">复古米白</option><option value="black">黑色电影边框</option><option value="instant">拍立得宽底边</option></select></div><div><label>模拟相机</label><select id="cameraBrand"><option>LEICA M6</option><option>LEICA Q</option><option>CONTAX T2</option><option>CONTAX G2</option><option>FUJIFILM X100</option><option>FUJIFILM X-PRO</option><option>KODAK RETINA</option><option>KODAK M35</option><option>CINESTILL 800T</option><option>JIAOPIAN 35</option></select></div></div></details></section><section class="page" id="albumPage"><div class="row"><b>照片档案</b><span class="muted" id="total">0 张</span></div><div class="row albumTools"><button class="ghost" id="selectAll">全选</button><span class="muted" id="selectedCount">已选 0 张</span><button class="ghost" id="deleteSelected">删除所选</button></div><div class="grid" id="photos"></div><p class="muted" id="empty">拍摄的照片会保存在这里。</p></section><section class="page" id="guidePage"><div class="customEffects" style="margin-top:14px">
 <strong>新手指南｜第一次使用胶片</strong>
 <p class="muted">不用一次弄懂所有参数。刚开始可以保持默认设置，选择喜欢的胶片，然后直接拍照。下面是每项设置的简单解释。</p>
