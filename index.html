@@ -35,6 +35,11 @@ img,video,canvas{max-width:100%}
  .shutter{width:58px;height:58px}
 }
 @media(orientation:landscape) and (max-height:600px){
+ .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+ .row>div:first-child{order:1}
+ .row .evControl{order:2}
+ .row .shutter{order:3;margin-left:auto;flex-shrink:0}
+
  .app{max-width:900px;min-height:100svh;padding-left:max(env(safe-area-inset-left),14px);padding-right:max(env(safe-area-inset-right),14px)}
  header{height:46px;flex-shrink:0}
  main{padding:7px 0;overflow-y:auto}
