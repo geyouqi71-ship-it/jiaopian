@@ -150,6 +150,37 @@ img,video,canvas{max-width:100%}
 }
 
 
+
+/* Native select menus follow the active appearance instead of browser white defaults */
+html:not([data-theme="light"]) select{
+ color-scheme:dark;
+ background-color:var(--panel);
+ color:var(--cream);
+}
+html:not([data-theme="light"]) select option{
+ background-color:#1b1b18;
+ color:#e9e4d8;
+}
+html[data-theme="light"] select{
+ color-scheme:light;
+ background-color:var(--panel);
+ color:var(--cream);
+}
+html[data-theme="light"] select option{
+ background-color:#fff;
+ color:#24241f;
+}
+@media(prefers-color-scheme:light){
+ html[data-theme="system"] select{
+  color-scheme:light;
+  background-color:var(--panel);
+  color:var(--cream);
+ }
+ html[data-theme="system"] select option{
+  background-color:#fff;
+  color:#24241f;
+ }
+}
 /* Appearance themes: camera preview remains untouched */
 :root{
  color-scheme:dark;
