@@ -173,6 +173,18 @@ html[data-theme="light"] .tabs button.active,
 html[data-theme="system"] .tabs button.active{background:var(--panel);border-color:var(--line);color:var(--cream)}
 html[data-theme="light"] .advancedControls[open]>.menuClose,
 html[data-theme="system"] .advancedControls[open]>.menuClose{background:var(--panel);color:var(--cream);border-color:var(--line)}
+
+/* Light appearance: show a light neutral camera placeholder before permission/startup */
+html[data-theme="light"] .finder{background:#eeede8;border-color:#d8d6ce}
+html[data-theme="light"] #message{color:#66645d}
+html[data-theme="light"] #message b{color:#292923}
+html[data-theme="light"] #message p{color:#77756e}
+@media(prefers-color-scheme:light){
+ html[data-theme="system"] .finder{background:#eeede8;border-color:#d8d6ce}
+ html[data-theme="system"] #message{color:#66645d}
+ html[data-theme="system"] #message b{color:#292923}
+ html[data-theme="system"] #message p{color:#77756e}
+}
 /* The live camera image and photo viewer keep their own dark presentation */
 html[data-theme="light"] .viewer,
 html[data-theme="system"] .viewer{background:#080807}
